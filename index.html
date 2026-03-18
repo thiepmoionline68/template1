@@ -180,7 +180,7 @@
 
         <div class="relative z-10 space-y-2 mb-4">
             <h1 class="text-5xl md:text-[8rem] text-white font-signature drop-shadow-2xl reveal active">
-                Quỳnh ❤️ Trường
+                Quỳnh <span style="font-size: 30px;">❤️</span> Trường
             </h1>
           
             <div class="space-y-3 reveal active" style="transition-delay: 0.3s;">
@@ -546,32 +546,45 @@
 
         closeLightbox.onclick = closeLightboxFn;
         lightbox.onclick = (e) => { if(e.target === lightbox) closeLightboxFn(); };
-
-        // 2. Countdown Logic (Updated Date: Jan 31, 2026)
-        const weddingDate = new Date('May 31, 2026 10:00:00').getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const gap = weddingDate - now;
-
-            const second = 1000;
-            const minute = second * 60;
-            const hour = minute * 60;
-            const day = hour * 24;
-
-            const d = Math.floor(gap / day);
-            const h = Math.floor((gap % day) / hour);
-            const m = Math.floor((gap % hour) / minute);
-            const s = Math.floor((gap % minute) / second);
-
-            document.getElementById('days').innerText = d > 0 ? d.toString().padStart(2, '0') : "00";
-            document.getElementById('hours').innerText = h > 0 ? h.toString().padStart(2, '0') : "00";
-            document.getElementById('minutes').innerText = m > 0 ? m.toString().padStart(2, '0') : "00";
-            document.getElementById('seconds').innerText = s > 0 ? s.toString().padStart(2, '0') : "00";
-        }
-
-        setInterval(updateCountdown, 1000);
-        updateCountdown();
     </script>
+
+    <script id="countdown-js">
+const weddingDate = new Date('2026-04-26T09:00:00+07:00').getTime();
+
+function updateCountdown() {
+    const now = new Date().getTime();
+    const gap = weddingDate - now;
+
+    // Nếu đã tới ngày cưới
+    if (gap <= 0) {
+        document.getElementById('days').innerText = "00";
+        document.getElementById('hours').innerText = "00";
+        document.getElementById('minutes').innerText = "00";
+        document.getElementById('seconds').innerText = "00";
+        return;
+    }
+
+    const second = 1000;
+    const minute = second * 60;
+    const hour = minute * 60;
+    const day = hour * 24;
+
+    const days = Math.floor(gap / day);
+    const hours = Math.floor((gap % day) / hour);
+    const minutes = Math.floor((gap % hour) / minute);
+    const seconds = Math.floor((gap % minute) / second);
+
+    document.getElementById('days').innerText = days.toString().padStart(2, '0');
+    document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
+    document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
+    document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
+}
+
+// chạy mỗi giây
+setInterval(updateCountdown, 1000);
+
+// chạy ngay lần đầu
+updateCountdown();
+</script>
 </body>
 </html>
